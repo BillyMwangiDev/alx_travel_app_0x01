@@ -1,0 +1,45 @@
+[tool.basedpyright]
+# Type checking mode - use "basic" for less strict checking
+typeCheckingMode = "basic"
+
+# Python version
+pythonVersion = "3.13"
+
+# Virtual environment configuration
+venvPath = "."
+venv = "venv"
+
+# Include paths
+include = ["**/*.py"]
+
+# Exclude paths
+exclude = [
+    "**/__pycache__",
+    "**/migrations",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+]
+
+# Report missing imports - set to "none" or "warning" if you want to suppress errors
+reportMissingImports = "warning"
+reportMissingTypeStubs = false
+
+# Execution environment - allows basedpyright to find installed packages
+executionEnvironments = [
+    {
+        "root": ".",
+        "pythonVersion": "3.13",
+        "pythonPlatform": "Windows",
+    }
+]
+
+[tool.pyright]
+# Compatibility settings for Pyright
+include = ["**/*.py"]
+exclude = [
+    "**/__pycache__",
+    "**/migrations",
+]
+reportMissingImports = "warning"
+
