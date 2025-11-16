@@ -4,10 +4,10 @@ Overview
 - Implements core models (`Listing`, `Booking`, `Review`), DRF serializers, and a `seed` management command for sample data.
 
 Setup (Windows PowerShell / cmd)
-1) Create & activate virtualenv (Python 3.11)
+1) Create & activate virtualenv (Python 3.12)
 
 ```
-py -3.11 -m venv .venv
+py -3.12 -m venv .venv
 .venv\Scripts\activate
 ```
 
