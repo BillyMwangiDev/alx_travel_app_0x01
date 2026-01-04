@@ -59,3 +59,34 @@ class Review(models.Model):
     def __str__(self) -> str:
         return f\"Review {self.rating}/5 by {self.reviewer_name} on {self.listing}\"
 
+
+class Payment(models.Model):
+    \"\"\"
+    Payment model to store payment-related information.
+    
+    Stores booking reference, payment status, amount, and transaction ID
+    from Chapa API.
+    \"\"\"
+    class Status(models.TextChoices):
+        PENDING = \"PENDING\", \"Pending\"
+        COMPLETED = \"COMPLETED\", \"Completed\"
+        FAILED = \"FAILED\", \"Failed\"
+
+    booking = models.OneToOneField(Booking, on_delete=models.CASCADE, related_name=\"payment\")
+    booking_reference = models.CharField(max_length=100, unique=True, db_index=True)
+    transaction_id = models.CharField(max_length=100, blank=True, null=True, db_index=True)
+    amount = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(0)])
+    status = models.CharField(max_length=10, choices=Status.choices, default=Status.PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = [\"-created_at\"]
+        indexes = [
+            models.Index(fields=[\"booking_reference\"]),
+            models.Index(fields=[\"transaction_id\"]),
+            models.Index(fields=[\"status\"]),
+        ]
+
+    def __str__(self) -> str:
+        return f\"Payment for {self.booking_reference} - {self.status} ({self.amount})\"
